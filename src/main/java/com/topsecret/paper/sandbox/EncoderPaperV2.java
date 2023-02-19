@@ -6,7 +6,7 @@ import com.secretlib.model.ProgressStepEnum;
 import com.secretlib.util.HiUtils;
 import com.secretlib.util.Log;
 import com.secretlib.util.Parameters;
-import com.topsecret.paper.encoder.WalkerPaper;
+import com.topsecret.paper.codec.WalkerPaper;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

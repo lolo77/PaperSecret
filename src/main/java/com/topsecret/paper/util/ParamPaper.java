@@ -49,7 +49,7 @@ public class ParamPaper extends BatchParameters {
     }
 
     @Override
-    protected void consumeArgExt(String arg, Iterator<String> iter) {
+    protected boolean consumeArgExt(String arg, Iterator<String> iter) {
         super.consumeArgExt(arg, iter);
         try {
             if (THRESHOLD_ENCODE_RADON_CLEAN.equals(arg)) {
@@ -140,6 +140,7 @@ public class ParamPaper extends BatchParameters {
         } catch (RuntimeException e) {
             // NO OP
         }
+        return true;
     }
 
     public int getThresholdEncodeRadonClean() {

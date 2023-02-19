@@ -1,13 +1,12 @@
 package com.topsecret.paper;
 
 import com.secretlib.model.ChunkData;
-import com.secretlib.model.ChunkHash;
 import com.secretlib.model.DefaultProgressCallback;
 import com.secretlib.model.HiDataBag;
 import com.secretlib.util.HiUtils;
 import com.secretlib.util.Log;
-import com.topsecret.paper.encoder.DecoderPaper;
-import com.topsecret.paper.encoder.EncoderPaper;
+import com.topsecret.paper.codec.DecoderPaper;
+import com.topsecret.paper.codec.EncoderPaper;
 import com.topsecret.paper.util.ParamPaper;
 
 import javax.imageio.ImageIO;

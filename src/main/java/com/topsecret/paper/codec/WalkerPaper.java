@@ -1,4 +1,4 @@
-package com.topsecret.paper.encoder;
+package com.topsecret.paper.codec;
 
 import com.secretlib.util.Log;
 

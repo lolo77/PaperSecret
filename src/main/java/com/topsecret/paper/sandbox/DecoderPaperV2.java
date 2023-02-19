@@ -10,7 +10,7 @@ import com.secretlib.util.Log;
 import com.secretlib.util.Parameters;
 import com.topsecret.paper.detector.Interval;
 import com.topsecret.paper.util.Vector2D;
-import com.topsecret.paper.encoder.WalkerPaper;
+import com.topsecret.paper.codec.WalkerPaper;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

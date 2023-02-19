@@ -7,12 +7,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 
 /**
  * @author Florent FRADET
- *
  */
 public class Shape {
 
@@ -41,7 +39,7 @@ public class Shape {
         }
 
         public void update(Vector2D p) {
-            int d = (int)p.getSubtracted(target).getLengthSq();
+            int d = (int) p.getSubtracted(target).getLengthSq();
             if (d < dist) {
                 nearest = p;
                 dist = d;
@@ -89,10 +87,10 @@ public class Shape {
 
     protected void computeRectCorners(Vector2D boundingMax) {
         List<ClosestPointFinder> finders = new ArrayList<>();
-        finders.add(new ClosestPointFinder(new Vector2D(0,0)));
-        finders.add(new ClosestPointFinder(new Vector2D(boundingMax.getX(),0)));
+        finders.add(new ClosestPointFinder(new Vector2D(0, 0)));
+        finders.add(new ClosestPointFinder(new Vector2D(boundingMax.getX(), 0)));
         finders.add(new ClosestPointFinder(boundingMax));
-        finders.add(new ClosestPointFinder(new Vector2D(0,boundingMax.getY())));
+        finders.add(new ClosestPointFinder(new Vector2D(0, boundingMax.getY())));
 
         for (Interval i : lstIntervals) {
             updateFinders(finders, new Vector2D(i.getxMin(), i.getY()));
@@ -134,7 +132,7 @@ public class Shape {
     public void draw(BufferedImage img) {
         Graphics g = img.getGraphics();
 
-        g.setColor(new Color(0x8000FF00,true));
+        g.setColor(new Color(0x8000FF00, true));
 
         for (Interval i : lstIntervals) {
             g.drawLine(i.getxMin(), i.getY(), i.getxMax(), i.getY());

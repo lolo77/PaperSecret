@@ -1,4 +1,4 @@
-package com.topsecret.paper.encoder;
+package com.topsecret.paper.codec;
 
 import com.secretlib.exception.BagParseFinishException;
 import com.secretlib.exception.NoBagException;
@@ -9,6 +9,8 @@ import com.secretlib.util.HiUtils;
 import com.secretlib.util.Log;
 import com.topsecret.paper.detector.Shape;
 import com.topsecret.paper.detector.ShapeDetector;
+import com.topsecret.paper.detector.exception.DetectorNoShapeException;
+import com.topsecret.paper.detector.exception.DetectorShapeNotARectangleException;
 import com.topsecret.paper.util.ParamPaper;
 import com.topsecret.paper.util.Vector2D;
 
@@ -401,12 +403,12 @@ public class DecoderPaper {
             LOG.debug(outer.toString());
         } else {
             LOG.error("Shape not found");
-            throw new DecoderNoShapeException();
+            throw new DetectorNoShapeException();
         }
 
         if ((outer == null) || (outer.getLstPointsMax().size() != 4)) {
             LOG.error("Outer 4 points not found");
-            throw new DecoderShapeNotARectangleException();
+            throw new DetectorShapeNotARectangleException();
         }
 
         BufferedImage imgExt = extractImage(img, outer, p);

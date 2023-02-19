@@ -1,4 +1,4 @@
-package com.topsecret.paper.encoder;
+package com.topsecret.paper.codec;
 
 import com.secretlib.exception.HiDataEncodeSpaceException;
 import com.secretlib.model.ProgressMessage;
@@ -187,12 +187,7 @@ public class EncoderPaper {
         }
 
         img.getRaster().setPixels(x1, y1, blocW, blocH, pixelsComp);
-/*
-        if (ret.cleaned) {
-            g.setColor(new Color(avgComps[0], avgComps[1], avgComps[2]));
-            g.fillRect(x1, y1, blocW, blocH);
-        }
-*/
+
         int avg = 0;
         for (int ic = 0; ic < avgComps.length; ic++) {
             avg += avgComps[ic];
@@ -201,120 +196,6 @@ public class EncoderPaper {
         ret.avg = avg;
     }
 
-    /*
-        private static void setLuminosity(BufferedImage img, int[][] luminosity, int x, int y, int w, int h, int newLum) {
-            int x1 = x * img.getWidth() / w;
-            int x2 = (x + 1) * img.getWidth() / w;
-            int y1 = y * img.getHeight() / h;
-            int y2 = (y + 1) * img.getHeight() / h;
-            int blocW = x2 - x1;
-            int blocH = y2 - y1;
-            int area = blocW * blocH;
-            WritableRaster r = img.getRaster();
-            int nbComp = r.getNumBands();
-            int lastComp = Math.min(3, nbComp);
-            int areaComp = area * lastComp;
-
-            int lumStart = luminosity[y][x];
-            int lumDelta = (newLum - lumStart) * areaComp;
-
-            int[] pix = r.getPixels(x1, y1, blocW, blocH, (int[]) null);
-            int lumDeltaRem = Math.abs(lumDelta);
-            while (lumDeltaRem > 0) {
-                for (int i = 0; i < pix.length; i += nbComp) {
-                    if (lumDeltaRem == 0) {
-                        break;
-                    }
-                    for (int c = i; c < i + lastComp; c++) {
-                        int localLumDelta = lumDelta / areaComp;
-                        if (localLumDelta == 0) {
-                            localLumDelta = (lumDelta > 0) ? 1 : -1;
-                        }
-                        int oldPix = pix[c];
-                        pix[c] += localLumDelta;
-
-                        if (pix[c] > 0xff) {
-                            pix[c] = 0xff;
-                        }
-                        if (pix[c] < 0) {
-                            pix[c] = 0x00;
-                        }
-                        lumDeltaRem -= Math.abs(pix[c] - oldPix);
-                        if (lumDeltaRem == 0) {
-                            break;
-                        }
-                    }
-                }
-                lumDelta = (lumDelta > 0) ? lumDeltaRem : -lumDeltaRem;
-            }
-            r.setPixels(x1, y1, blocW, blocH, pix);
-
-            int checkSum = computeAvgLuminosity(r, x1, y1, x2, y2);
-            if (checkSum != newLum) {
-                LOG.debug("checkSum error at x1 = " + x1 + " ; y1 = " + y1 + " : " + checkSum + " / " + newLum);
-            }
-        }
-    /*
-        public int[] computeAvgColorAround(WritableRaster r, int x1, int y1, int x2, int y2) {
-            int w = x2 - x1;
-            int h = y2 - y1;
-            int area = w * h;
-            int nbComp = r.getNumBands();
-            int[] pix = r.getPixels(x1, y1, w, h, (int[]) null);
-            int[] avg = new int[nbComp];
-            for (int i = 0; i < pix.length; i++) {
-                avg[i % nbComp] += pix[i] & 0xff;
-            }
-            for (int c = 0; c < avg.length; c++) {
-                avg[c] /= area;
-            }
-            return avg;
-        }
-
-        public void computeImageColor(BufferedImage img, int w, int h) {
-            int nbComp = img.getColorModel().getNumComponents();
-            avgColor = new int[h][w][nbComp];
-
-            int x1 = 0;
-            for (int x = 0; x < w; x++) {
-                int x2 = (x + 1) * img.getWidth() / w;
-                int y1 = 0;
-                for (int y = 0; y < h; y++) {
-                    int y2 = (y + 1) * img.getHeight() / h;
-                    avgColor[y][x] = computeAvgColorAround(img.getRaster(), x1, y1, x2, y2);
-                    y1 = y2;
-                }
-                x1 = x2;
-            }
-        }
-
-        private void computeAvgColorAround(int x, int y, int w, int h, int[] pix) {
-            Arrays.fill(pix, 0);
-            int nb = 0;
-            for (int _y = y - 1; _y <= y + 1; _y++) {
-                if ((_y < 0) || (_y >= h)) {
-                    continue;
-                }
-
-                for (int _x = x - 1; _x <= x + 1; _x++) {
-                    if ((_x < 0) || (_x >= w)) {
-                        continue;
-                    }
-                    if ((_x == x) && (_y == y)) {
-                        continue;
-                    }
-                    for (int c = 0; c < pix.length; c++) {
-                        pix[c] += avgColor[_y][_x][c];
-                    }
-                    nb++;
-                }
-            }
-
-            for (int c = 0; c < pix.length; c++) {
-                pix[c] /= nb;
-            }
-        }
-    */
     public BufferedImage encode(BufferedImage img, byte[] data, ParamPaper params) throws Exception {
         LOG.begin("encode");
 
