@@ -1,12 +1,12 @@
-package com.topsecret.paper.sandbox;
+package com.topsecret.plugin.papersecret.sandbox;
 
 import com.secretlib.util.Log;
 import com.secretlib.util.Parameters;
-import com.topsecret.paper.detector.Shape;
-import com.topsecret.paper.detector.ShapeDetector;
-import com.topsecret.paper.detector.exception.DetectorNoShapeException;
-import com.topsecret.paper.detector.exception.DetectorShapeNotARectangleException;
-import com.topsecret.paper.util.Vector2D;
+import com.topsecret.plugin.papersecret.detector.Shape;
+import com.topsecret.plugin.papersecret.detector.ShapeDetector;
+import com.topsecret.plugin.papersecret.detector.exception.DetectorNoShapeException;
+import com.topsecret.plugin.papersecret.detector.exception.DetectorShapeNotARectangleException;
+import com.topsecret.plugin.papersecret.util.Vector2D;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

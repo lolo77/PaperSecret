@@ -1,11 +1,12 @@
-package com.topsecret.paper.codec;
+package com.topsecret.plugin.papersecret.codec;
 
 import com.secretlib.exception.HiDataEncodeSpaceException;
 import com.secretlib.model.ProgressMessage;
 import com.secretlib.model.ProgressStepEnum;
 import com.secretlib.util.HiUtils;
 import com.secretlib.util.Log;
-import com.topsecret.paper.util.ParamPaper;
+import com.secretlib.util.Parameters;
+import com.topsecret.plugin.papersecret.util.ParamPaper;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -196,12 +197,14 @@ public class EncoderPaper {
         ret.avg = avg;
     }
 
-    public BufferedImage encode(BufferedImage img, byte[] data, ParamPaper params) throws Exception {
+    public BufferedImage encode(BufferedImage img, byte[] data, Parameters p) throws Exception {
         LOG.begin("encode");
 
         if (img.getColorModel().getNumComponents() < 3) {
             throw new Exception("RGB color components is the minimum required.");
         }
+
+        ParamPaper params = new ParamPaper(p);
 
         BufferedImage imgDebug = null;
         Graphics gd = null;

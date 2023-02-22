@@ -1,7 +1,8 @@
-package com.topsecret.paper.util;
+package com.topsecret.plugin.papersecret.util;
 
 import com.secretlib.util.BatchParameters;
 import com.secretlib.util.Log;
+import com.secretlib.util.Parameters;
 
 import java.util.Iterator;
 
@@ -10,28 +11,67 @@ public class ParamPaper extends BatchParameters {
 
     // The higher, the most discrete
     // The lower, the most mean color clean squares
-    private static final String THRESHOLD_ENCODE_RADON_CLEAN = "ter";
+    public static final String THRESHOLD_ENCODE_RADON_CLEAN = "ter";
     private int thresholdEncodeRadonClean = 0x20; // 10
 
     // The higher, the easier to read
     // The lower, the most discrete
-    private static final String THRESHOLD_ENCODE_COLOR = "tec";
+    public static final String THRESHOLD_ENCODE_COLOR = "tec";
     private int thresholdEncodeColor = 0x60; // 40
 
-    private static final String THRESHOLD_DECODE_RADON = "tdr";
+    public static final String THRESHOLD_DECODE_RADON = "tdr";
     private int thresholdDecodeRadon = thresholdEncodeRadonClean * 2;
 
-    private static final String OUTPUT_WIDTH = "ow";
+    public static final String OUTPUT_WIDTH = "ow";
     private int outputWidth = 2000; // Default 300dpi A4 printable area width (landscape)
 
-    private static final String OUTPUT_HEIGHT = "oh";
+    public static final String OUTPUT_HEIGHT = "oh";
     private int outputHeight = 1500; // Default 300dpi A4 printable area height (landscape)
 
-    private static final String EXTRACT_RES = "er";
+    public static final String EXTRACT_RES = "er";
     private int extractRes = 4096;
 
-    private static final String MONO_THRESHOLD = "mt";
+    public static final String MONO_THRESHOLD = "mt";
     private int monoThreshold = 0x80;
+
+
+    public ParamPaper(Parameters p) {
+        Integer i = (Integer)p.getExtendedParams().get(MONO_THRESHOLD);
+        if (i != null) {
+            setMonoThreshold(i);
+        }
+
+        i = (Integer)p.getExtendedParams().get(EXTRACT_RES);
+        if (i != null) {
+            setExtractRes(i);
+        }
+
+        i = (Integer)p.getExtendedParams().get(OUTPUT_HEIGHT);
+        if (i != null) {
+            setOutputHeight(i);
+        }
+
+        i = (Integer)p.getExtendedParams().get(OUTPUT_WIDTH);
+        if (i != null) {
+            setOutputWidth(i);
+        }
+
+        i = (Integer)p.getExtendedParams().get(THRESHOLD_DECODE_RADON);
+        if (i != null) {
+            setThresholdDecodeRadon(i);
+        }
+
+        i = (Integer)p.getExtendedParams().get(THRESHOLD_ENCODE_COLOR);
+        if (i != null) {
+            setThresholdEncodeColor(i);
+        }
+
+        i = (Integer)p.getExtendedParams().get(THRESHOLD_ENCODE_RADON_CLEAN);
+        if (i != null) {
+            setThresholdEncodeRadonClean(i);
+        }
+    }
+
 
     public ParamPaper(String[] args) {
         super(args);

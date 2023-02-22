@@ -1,4 +1,4 @@
-package com.topsecret.paper.sandbox;
+package com.topsecret.plugin.papersecret.sandbox;
 
 public class EdgeHVFilter {
     public static int[][] filter(int[][] image) {

@@ -1,4 +1,4 @@
-package com.topsecret.paper.sandbox;
+package com.topsecret.plugin.papersecret.sandbox;
 
 import com.secretlib.exception.HiDataEncodeSpaceException;
 import com.secretlib.model.ProgressMessage;
@@ -6,7 +6,7 @@ import com.secretlib.model.ProgressStepEnum;
 import com.secretlib.util.HiUtils;
 import com.secretlib.util.Log;
 import com.secretlib.util.Parameters;
-import com.topsecret.paper.codec.WalkerPaper;
+import com.topsecret.plugin.papersecret.codec.WalkerPaper;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

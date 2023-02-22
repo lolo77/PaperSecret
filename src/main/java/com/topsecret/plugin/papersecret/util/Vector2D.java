@@ -1,4 +1,4 @@
-package com.topsecret.paper.util;
+package com.topsecret.plugin.papersecret.util;
 
 /**
  * From https://gist.github.com/gunvirranu

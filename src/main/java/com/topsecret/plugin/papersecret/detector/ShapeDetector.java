@@ -1,7 +1,7 @@
-package com.topsecret.paper.detector;
+package com.topsecret.plugin.papersecret.detector;
 
 import com.secretlib.util.Log;
-import com.topsecret.paper.util.Vector2D;
+import com.topsecret.plugin.papersecret.util.Vector2D;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;

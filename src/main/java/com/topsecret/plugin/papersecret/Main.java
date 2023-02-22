@@ -1,13 +1,20 @@
-package com.topsecret.paper;
+package com.topsecret.plugin.papersecret;
 
+import com.secretlib.io.stream.HiDataStreamFactory;
 import com.secretlib.model.ChunkData;
 import com.secretlib.model.DefaultProgressCallback;
 import com.secretlib.model.HiDataBag;
 import com.secretlib.util.HiUtils;
 import com.secretlib.util.Log;
-import com.topsecret.paper.codec.DecoderPaper;
-import com.topsecret.paper.codec.EncoderPaper;
-import com.topsecret.paper.util.ParamPaper;
+import com.topsecret.event.TopEventBase;
+import com.topsecret.event.TopEventPluginStart;
+import com.topsecret.event.TopEventPluginStop;
+import com.topsecret.plugin.Pluggable;
+import com.topsecret.plugin.papersecret.codec.DecoderPaper;
+import com.topsecret.plugin.papersecret.codec.EncoderPaper;
+import com.topsecret.plugin.papersecret.stream.HiDataPaperInputStream;
+import com.topsecret.plugin.papersecret.stream.HiDataPaperOutputStream;
+import com.topsecret.plugin.papersecret.util.ParamPaper;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -15,9 +22,37 @@ import java.io.File;
 import java.io.FileInputStream;
 
 
-public class Main {
+public class Main implements Pluggable {
 
     private static final Log LOG = new Log(Main.class);
+
+
+    public void startCodec() {
+        LOG.debug("start codec");
+        HiDataStreamFactory.registerInputStream(new HiDataPaperInputStream());
+        HiDataStreamFactory.registerOutputStream(new HiDataPaperOutputStream());
+    }
+
+
+    public void stopCodec() {
+        LOG.debug("stop codec");
+        HiDataStreamFactory.unregisterInputStream(new HiDataPaperInputStream());
+        HiDataStreamFactory.unregisterOutputStream(new HiDataPaperOutputStream());
+    }
+
+
+    @Override
+    public void onPluginEvent(TopEventBase e) {
+        if (e instanceof TopEventPluginStart) {
+            startCodec();
+        }
+        if (e instanceof TopEventPluginStop) {
+            stopCodec();
+        }
+    }
+
+
+    //------------------------- Test section
 
 
     public static void encodePaper(ParamPaper p) throws Exception {
@@ -89,6 +124,12 @@ public class Main {
         }
     }
 
+
+    /**
+     * Test purposes only - never called as a plugin
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         Log.setLevel(Log.DEBUG);
         ParamPaper p = new ParamPaper(args);
@@ -103,4 +144,5 @@ public class Main {
             e.printStackTrace();
         }
     }
+
 }

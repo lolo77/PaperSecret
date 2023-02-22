@@ -1,11 +1,11 @@
-package com.topsecret.paper.sandbox;
+package com.topsecret.plugin.papersecret.sandbox;
 
 import com.secretlib.model.ProgressMessage;
 import com.secretlib.model.ProgressStepEnum;
 import com.secretlib.util.HiUtils;
 import com.secretlib.util.Log;
 import com.secretlib.util.Parameters;
-import com.topsecret.paper.codec.WalkerPaper;
+import com.topsecret.plugin.papersecret.codec.WalkerPaper;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

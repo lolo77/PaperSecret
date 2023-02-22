@@ -1,4 +1,4 @@
-package com.topsecret.paper.detector;
+package com.topsecret.plugin.papersecret.detector;
 
 import java.util.Comparator;
 

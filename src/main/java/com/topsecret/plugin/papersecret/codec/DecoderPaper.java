@@ -1,4 +1,4 @@
-package com.topsecret.paper.codec;
+package com.topsecret.plugin.papersecret.codec;
 
 import com.secretlib.exception.BagParseFinishException;
 import com.secretlib.exception.NoBagException;
@@ -7,12 +7,13 @@ import com.secretlib.model.HiDataBag;
 import com.secretlib.model.HiDataBagBuilder;
 import com.secretlib.util.HiUtils;
 import com.secretlib.util.Log;
-import com.topsecret.paper.detector.Shape;
-import com.topsecret.paper.detector.ShapeDetector;
-import com.topsecret.paper.detector.exception.DetectorNoShapeException;
-import com.topsecret.paper.detector.exception.DetectorShapeNotARectangleException;
-import com.topsecret.paper.util.ParamPaper;
-import com.topsecret.paper.util.Vector2D;
+import com.secretlib.util.Parameters;
+import com.topsecret.plugin.papersecret.detector.Shape;
+import com.topsecret.plugin.papersecret.detector.ShapeDetector;
+import com.topsecret.plugin.papersecret.detector.exception.DetectorNoShapeException;
+import com.topsecret.plugin.papersecret.detector.exception.DetectorShapeNotARectangleException;
+import com.topsecret.plugin.papersecret.util.ParamPaper;
+import com.topsecret.plugin.papersecret.util.Vector2D;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -31,6 +32,7 @@ public class DecoderPaper {
 
     private static final boolean DEBUG_GRAPH = false;
 
+    private ParamPaper paramPaper;
 
     private static int getAvg(int[] pix) {
         int avg = 0;
@@ -63,7 +65,7 @@ public class DecoderPaper {
         return tab;
     }
 
-    private BufferedImage extractImage(BufferedImage img, Shape outer, ParamPaper p) {
+    private BufferedImage extractImage(BufferedImage img, com.topsecret.plugin.papersecret.detector.Shape outer, ParamPaper p) {
 
         int res = p.getExtractRes();
         BufferedImage imgExt = new BufferedImage(res, res, BufferedImage.TYPE_INT_RGB);
@@ -206,7 +208,7 @@ public class DecoderPaper {
      * @return the decrypted
      * @throws Exception if a bag is truncated or any other error occurs
      */
-    private HiDataBag tryDecode(BufferedImage img, int res, ParamPaper params, int o) throws Exception {
+    private HiDataBag tryDecode(BufferedImage img, int res, ParamPaper params, int o) throws IOException, GeneralSecurityException {
         LOG.debug("tryDecode res : " + res);
 
         final int NB_ORIENTATIONS = 8;
@@ -376,9 +378,11 @@ public class DecoderPaper {
     }
 
 
-    public HiDataBag decode(BufferedImage img, ParamPaper p) throws Exception {
+    public HiDataBag decode(BufferedImage img, Parameters p) throws IOException, DetectorNoShapeException, DetectorShapeNotARectangleException {
 
-        byte[] bw = convertImgToMono(img, p.getMonoThreshold());
+        paramPaper = new ParamPaper(p);
+
+        byte[] bw = convertImgToMono(img, paramPaper.getMonoThreshold());
 
         if (DEBUG_GRAPH) {
             BufferedImage imgBW = convertImgMonoToImage(img, bw);
@@ -395,8 +399,8 @@ public class DecoderPaper {
             ImageIO.write(imgDetector, "png", new File("detect.png"));
         }
 
-        List<Shape> lst = detector.getLstShapes();
-        Shape outer = null;
+        List<com.topsecret.plugin.papersecret.detector.Shape> lst = detector.getLstShapes();
+        com.topsecret.plugin.papersecret.detector.Shape outer = null;
         if (lst.size() > 0) {
             lst.sort(new Shape.SurfaceComparator());
             outer = lst.get(0);
@@ -411,7 +415,7 @@ public class DecoderPaper {
             throw new DetectorShapeNotARectangleException();
         }
 
-        BufferedImage imgExt = extractImage(img, outer, p);
+        BufferedImage imgExt = extractImage(img, outer, paramPaper);
 
         if (DEBUG_GRAPH) {
             ImageIO.write(imgExt, "png", new File("ext.png"));
@@ -423,7 +427,7 @@ public class DecoderPaper {
 
         for (int res = 32; res <= 512; res += 32) {
             try {
-                HiDataBag bag = tryDecode(imgExt, res, p, -1);
+                HiDataBag bag = tryDecode(imgExt, res, paramPaper, -1);
                 LOG.info("Secret found @ res " + res);
                 if (bag.verifyHash())
                     return bag;

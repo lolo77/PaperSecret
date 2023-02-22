@@ -1,8 +1,8 @@
-package com.topsecret.paper.sandbox;
+package com.topsecret.plugin.papersecret.sandbox;
 
 import com.secretlib.util.Log;
-import com.topsecret.paper.detector.Interval;
-import com.topsecret.paper.util.Vector2D;
+import com.topsecret.plugin.papersecret.detector.Interval;
+import com.topsecret.plugin.papersecret.util.Vector2D;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

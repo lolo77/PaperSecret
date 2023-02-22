@@ -1,4 +1,4 @@
-package com.topsecret.paper.sandbox;
+package com.topsecret.plugin.papersecret.sandbox;
 
 import com.secretlib.exception.BagParseFinishException;
 import com.secretlib.exception.NoBagException;
@@ -8,9 +8,9 @@ import com.secretlib.model.HiDataBagBuilder;
 import com.secretlib.util.HiUtils;
 import com.secretlib.util.Log;
 import com.secretlib.util.Parameters;
-import com.topsecret.paper.detector.Interval;
-import com.topsecret.paper.util.Vector2D;
-import com.topsecret.paper.codec.WalkerPaper;
+import com.topsecret.plugin.papersecret.detector.Interval;
+import com.topsecret.plugin.papersecret.util.Vector2D;
+import com.topsecret.plugin.papersecret.codec.WalkerPaper;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
