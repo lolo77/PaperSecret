@@ -12,12 +12,12 @@ public class ParamPaper extends BatchParameters {
     // The higher, the most discrete
     // The lower, the most mean color clean squares
     public static final String THRESHOLD_ENCODE_RADON_CLEAN = "ter";
-    private int thresholdEncodeRadonClean = 0x20; // 10
+    private int thresholdEncodeRadonClean = 0x10; // 10
 
     // The higher, the easier to read
     // The lower, the most discrete
     public static final String THRESHOLD_ENCODE_COLOR = "tec";
-    private int thresholdEncodeColor = 0x60; // 40
+    private int thresholdEncodeColor = 0x80; // 40
 
     public static final String THRESHOLD_DECODE_RADON = "tdr";
     private int thresholdDecodeRadon = thresholdEncodeRadonClean * 2;
@@ -32,10 +32,12 @@ public class ParamPaper extends BatchParameters {
     private int extractRes = 4096;
 
     public static final String MONO_THRESHOLD = "mt";
-    private int monoThreshold = 0x80;
+    private int monoThreshold = 0xA0;
 
 
     public ParamPaper(Parameters p) {
+        super(p);
+
         Integer i = (Integer)p.getExtendedParams().get(MONO_THRESHOLD);
         if (i != null) {
             setMonoThreshold(i);

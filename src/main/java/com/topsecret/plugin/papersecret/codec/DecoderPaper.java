@@ -285,7 +285,7 @@ public class DecoderPaper {
                                 LOG.debug("Bag parsed");
                                 HiDataBag theBag = bags[orientation];
                                 theBag.decryptAll(params);
-                                if (theBag.hasUnencryptedItem()) {
+                                if ((theBag.hasUnencryptedItem()) || (!theBag.hasEncryptedItem())) {
                                     // At least one data is decyphered
                                     LOG.info("tryDecode success @ threshold " + t);
                                     return theBag;
@@ -295,7 +295,7 @@ public class DecoderPaper {
                                     try {
                                         params.setThresholdDecodeRadon(t);
                                         theBag = tryDecode(img, res, params, orientation);
-                                        if (theBag.hasUnencryptedItem()) {
+                                        if ((theBag.hasUnencryptedItem()) || (!theBag.hasEncryptedItem())) {
                                             // At least one data is decyphered
                                             LOG.info("tryDecode success after fine pass ");
                                             return theBag;

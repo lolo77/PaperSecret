@@ -280,11 +280,13 @@ public class EncoderPaper {
 
             long timeStart = System.currentTimeMillis();
             ProgressMessage msg = new ProgressMessage(ProgressStepEnum.ENCODE, 0);
-            for (int i = 0; i < 8; i++) {
-                msg.setNbBitsTotal(w.getBitMax() * 2, i);
+            msg.setNbBitsTotal(w.getBitMax() * 2, 0);
+            for (int i = 1; i < 8; i++) {
+                msg.setNbBitsTotal(0, i);
             }
 
             msg.setNbBitsCapacity(data.length * 8);
+            p.getProgressCallBack().update(msg);
 
             int _x = -1;
             int _y = -1;
@@ -338,7 +340,7 @@ public class EncoderPaper {
                         msg.setProgress((double) idxData / (double) (data.length));
                         msg.setNbBitsChanged(nbChanged);
                         msg.setNbBitsUsed(w.getIdxDataBit());
-                        params.getProgressCallBack().update(msg);
+                        p.getProgressCallBack().update(msg);
                     }
                 }
 
@@ -360,7 +362,7 @@ public class EncoderPaper {
             msg.setProgress((double) idxData / (double) (data.length));
             msg.setNbBitsUsed(nbBitsStored);
             msg.setNbBitsChanged(nbBitsChanged);
-            params.getProgressCallBack().update(msg);
+            p.getProgressCallBack().update(msg);
         }
 
         if (DEBUG_GRAPH) {

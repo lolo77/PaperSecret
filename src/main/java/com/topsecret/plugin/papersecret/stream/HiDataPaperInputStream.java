@@ -31,6 +31,11 @@ public class HiDataPaperInputStream extends HiDataAbstractInputStream {
     }
 
     @Override
+    public String getOutputCodecName() {
+        return HiDataPaperOutputStream.CODEC_NAME;
+    }
+
+    @Override
     public List<String> getExtensions() {
         return Collections.unmodifiableList(EXTENTIONS);
     }

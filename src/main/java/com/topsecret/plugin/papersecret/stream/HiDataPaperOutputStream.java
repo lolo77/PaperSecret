@@ -16,6 +16,7 @@ import java.util.List;
 
 public class HiDataPaperOutputStream extends HiDataAbstractOutputStream {
     private static final Log LOG = new Log(HiDataPaperOutputStream.class);
+    static final String CODEC_NAME = "Paper/1/PNG";
     static final List<String> EXTENTIONS = new ArrayList();
 
     private BufferedImage imgIn = null;
@@ -68,17 +69,12 @@ public class HiDataPaperOutputStream extends HiDataAbstractOutputStream {
 
     @Override
     public String getCodecName() {
-        return HiDataPaperInputStream.CODEC_NAME;
+        return CODEC_NAME;
     }
 
 
     static {
-        EXTENTIONS.add("jpg");
-        EXTENTIONS.add("jpe");
-        EXTENTIONS.add("jpeg");
-        EXTENTIONS.add("jfif");
         EXTENTIONS.add("png");
-        EXTENTIONS.add("bmp");
     }
 
 }
