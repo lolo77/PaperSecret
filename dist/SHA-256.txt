@@ -1,2 +1,2 @@
 Lastest version : 1.0.0
-c1e338f27db0602eb3b8406970e8b1f50255f074f12c4f4cb6e4bbe915bbd9cf  PaperSecret.jar
+1a27cbc5544820c37df8656d675abf3bd6c9b7baa42eccdef8ab1f3a6db90c9b  PaperSecret.jar
